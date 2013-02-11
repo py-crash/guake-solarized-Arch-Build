@@ -14,8 +14,6 @@ provides=('guake-colors-solarized')
 _gitroot="https://github.com/coolwanglu/guake-colors-solarized.git"
 _gitname="guake-colors-solarized"
 
-##TODO patch, install dirs
-
 build() {
     # {{{ git
     cd $srcdir
@@ -29,8 +27,7 @@ build() {
     fi
 
     msg "GIT checkout done or server timeout."
-    msg "Starting make..."
-    rm -rf $srcdir/$_gitname-build
+    msg "Starting making package..."
     # }}}
 }
 
@@ -41,13 +38,13 @@ package(){
     install -Dm755 set_dark.sh          ${pkgdir}/usr/bin/
     install -Dm755 set_light.sh         ${pkgdir}/usr/bin/
     
-    install -dm644 ${pkgdir}/usr/share/guake/solarized-colors/colors
-    install -Dm644 colors/*             ${pkgdir}/usr/share/guake/solarized-colors/colors/
+    install -dm644 ${pkgdir}/usr/share/guake/solarized-colors/
+    mv colors/ ${pkgdir}/usr/share/guake/solarized-colors/              
 
     install -dm644 ${pkgdir}/usr/share/guake/solarized-colors/doc
-    install -Dm644 README.mdk           ${pkgdir}/usr/share/guake/solarized-colors/doc
+    install -Dm644 README.mkd           ${pkgdir}/usr/share/guake/solarized-colors/doc
     
-    install -dm644 ${pkgdir}/usr/share/licenses/guake-solarized-colors/
-    install -Dm644 LICENSE.mdk          ${pkgdir}/usr/share/licenses/guake-colors-solarized/
+    install -dm644 ${pkgdir}/usr/share/licenses/guake-colors-solarized/
+    install -Dm644 LICENSE.mkd          ${pkgdir}/usr/share/licenses/guake-colors-solarized/
 }
 
