@@ -41,8 +41,10 @@ package(){
     install -Dm755 set_dark.sh          ${pkgdir}/usr/bin/
     install -Dm755 set_light.sh         ${pkgdir}/usr/bin/
     
-    install -dm644 ${pkgdir}/usr/share/guake/solarized-colors/"{colors, doc}"
+    install -dm644 ${pkgdir}/usr/share/guake/solarized-colors/colors
     install -Dm644 colors/*             ${pkgdir}/usr/share/guake/solarized-colors/colors/
+
+    install -dm644 ${pkgdir}/usr/share/guake/solarized-colors/doc
     install -Dm644 README.mdk           ${pkgdir}/usr/share/guake/solarized-colors/doc
     
     install -dm644 ${pkgdir}/usr/share/licenses/guake-solarized-colors/
