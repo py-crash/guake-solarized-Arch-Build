@@ -1,7 +1,7 @@
 # Maintainer: Agustin Ferrario 'py_crash' <agustin dot ferrario at hotmail dot com>
 
 pkgname=guake-colors-solarized-git
-pkgver=20130220
+pkgver=20130221
 pkgrel=1
 pkgdesc="Precision colors for machines and people. Guake integration"
 arch=('any')
@@ -10,7 +10,8 @@ license=('Custom, FOSS')
 makedepends=('git')
 depends=('guake')
 provides=('guake-colors-solarized')
-
+source=(dir.patch)
+md5sums=('25f2b58cac3baf491eeb75b30ac6495a')
 _gitroot="https://github.com/coolwanglu/guake-colors-solarized.git"
 _gitname="guake-colors-solarized"
 
@@ -35,9 +36,12 @@ build() {
   msg "GIT checkout done or server timeout."
   msg "Starting making package..."
   # }}}
+
 }
 
 package(){
+    patch -p1 $_gitname-build/set_dark.sh < dir.patch
+    patch -p1 $_gitname-build/set_light.sh < dir.patch
     cd "$srcdir/$_gitname-build"
     
     install -dm755 ${pkgdir}/usr/bin

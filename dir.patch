@@ -1,0 +1,18 @@
+commit 81bf8f619a05d7d4b2f1a851a39e6b699660ea22
+Author: py-crash <agustin.ferrario@hotmail.com.ar>
+Date:   Thu Feb 21 00:09:03 2013 -0300
+
+    changed dir
+
+diff --git a/set_dark.sh b/set_dark.sh
+index 5742e80..ad5a6a9 100755
+--- a/set_dark.sh
++++ b/set_dark.sh
+@@ -1,6 +1,6 @@
+ #!/usr/bin/env bash
+ default='solarized'
+-dir=`dirname $0`
++dir='/usr/share/guake/solarized-colors/'
+ 
+ if [ -d $dir/colors/$1 ]; then
+   theme=$1
