@@ -10,9 +10,10 @@ license=('Custom, FOSS')
 makedepends=('git')
 depends=('guake')
 provides=('guake-colors-solarized')
-install= $pkgname.install
+install=$pkgname.install
 source=(dir.patch)
 md5sums=('25f2b58cac3baf491eeb75b30ac6495a')
+
 _gitroot="https://github.com/coolwanglu/guake-colors-solarized.git"
 _gitname="guake-colors-solarized"
 
