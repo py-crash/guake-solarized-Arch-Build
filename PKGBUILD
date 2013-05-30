@@ -1,62 +1,51 @@
 # Maintainer: Agustin Ferrario 'py_crash' <agustin dot ferrario at hotmail dot com>
 
 pkgname=guake-colors-solarized-git
-pkgver=20130221
+pkgver=16
 pkgrel=1
-pkgdesc="Precision colors for machines and people. Guake integration"
+pkgdesc="Precision colors for machines and people. Guake integration."
 arch=('any')
 url="http://ethanschoonover.com/solarized"
 license=('Custom, FOSS')
-makedepends=('git')
 depends=('guake')
-provides=('guake-colors-solarized')
+makedepends=('git')
+provides=("${pkgname%-*}")
+conflicts=("${pkgname%-*}")
 install=$pkgname.install
-source=(dir.patch)
-md5sums=('25f2b58cac3baf491eeb75b30ac6495a')
+source=("git+https://github.com/coolwanglu/${pkgname%-*}"
+        "dir.patch")
+md5sums=('SKIP'
+         '1e0761637fe55ee8de1904440be3c1ec')
 
-_gitroot="https://github.com/coolwanglu/guake-colors-solarized.git"
-_gitname="guake-colors-solarized"
+pkgver() {
+  cd "${srcdir}"/${pkgname%-*}
 
-build() {
-  # {{{ git
-  
-  cd "$srcdir"
-  msg "Connecting to GIT server...."
+  git rev-list --count HEAD
+}
 
-  if [[ -d "$_gitname" ]]; then
-    cd "$_gitname" && git pull origin
-    msg "The local files are updated."
-  else
-    git clone "$_gitroot" "$_gitname"
-  fi
+prepare() {
+  cd "${srcdir}"/${pkgname%-*}
 
-  msg "GIT checkout done or server timeout"
-  msg "Starting build..."
-
-  rm -rf "$srcdir/$_gitname-build"
-  git clone "$srcdir/$_gitname" "$srcdir/$_gitname-build"
-  msg "GIT checkout done or server timeout."
-  msg "Starting making package..."
-  # }}}
+  patch -p1 -i $srcdir/dir.patch
 
 }
 
-package(){
-    patch -p1 $_gitname-build/set_dark.sh < dir.patch
-    patch -p1 $_gitname-build/set_light.sh < dir.patch
-    cd "$srcdir/$_gitname-build"
-    
-    install -dm755 ${pkgdir}/usr/bin
-    install -Dm755 set_dark.sh          ${pkgdir}/usr/bin/
-    install -Dm755 set_light.sh         ${pkgdir}/usr/bin/
-    
-    install -dm755 ${pkgdir}/usr/share/guake/solarized-colors/
-    mv colors/ ${pkgdir}/usr/share/guake/solarized-colors/              
 
-    install -dm755 ${pkgdir}/usr/share/guake/solarized-colors/doc
-    install -Dm644 README.mkd           ${pkgdir}/usr/share/guake/solarized-colors/doc
-    
-    install -dm755 ${pkgdir}/usr/share/licenses/guake-colors-solarized/
-    install -Dm644 LICENSE.mkd          ${pkgdir}/usr/share/licenses/guake-colors-solarized/
+package() {
+  cd "${srcdir}"/${pkgname%-*}
+
+  install -dm 755 "${pkgdir}"/usr/bin
+  install -m 755 {,"${pkgdir}"/usr/bin/}set_dark.sh
+  install -m 755 {,"${pkgdir}"/usr/bin/}set_light.sh
+
+  install -dm 755 "${pkgdir}"/usr/share/guake/solarized-colors
+  mv colors "${pkgdir}"/usr/share/guake/solarized-colors/
+
+  install -dm 755 "${pkgdir}"/usr/share/guake/solarized-colors/doc
+  install -m 644 {,"${pkgdir}"/usr/share/guake/solarized-colors/doc/}README.mkd
+
+  install -dm 755 "${pkgdir}"/usr/share/licenses/${pkgname}
+  install -m 644 {,"${pkgdir}"/usr/share/licenses/${pkgname}/}LICENSE.mkd
 }
 
+# vim: ts=2 sw=2 et:
