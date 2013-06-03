@@ -1,5 +1,6 @@
 # Guake Solarized Colors #
-This is a work in progress so don't expect it to work as it should. This sopouse to build and install [guake-colors-solarized] (https://github.com/coolwanglu/guake-colors-solarized.git) in Arch Linux.
+This are the files needed build and install [guake-colors-solarized] (https://github.com/coolwanglu/guake-colors-solarized.git) in Arch Linux. You get from [aur] (https://aur.archlinux.org/packages/guake-colors-solarized-git/) or just install it using: <br>
+`yaourt -S guake-colors-solarized-git`
 
 ##Licence (Boring Stuff...)##
 Copyright (c) 2012 Agustin Ferrario. <br>
